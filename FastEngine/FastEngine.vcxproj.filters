@@ -1,42 +1,70 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="FastEngine">
+      <UniqueIdentifier>{494BA31F-3503-E56C-9E0A-BEC88AE17F5D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="FastEngine\Events">
+      <UniqueIdentifier>{0D4BDC3D-7961-DAD3-C2D8-65F52E2EAB5B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="FastEngine\ImGui">
+      <UniqueIdentifier>{335313C4-1F4C-3216-487E-179B34D61122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FastEngine\Platform">
+      <UniqueIdentifier>{BD493942-29AB-1650-B218-5D021E794D0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FastEngine\Platform\Windows">
+      <UniqueIdentifier>{F7605F6D-636E-8D53-EC54-893E5861590A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\FastEngine\Log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\FastEngine\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\FastEngine\Log.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\FastEngine.h" />
+    <ClInclude Include="Source\FastEngine\Application.h">
+      <Filter>FastEngine</Filter>
     </ClInclude>
     <ClInclude Include="Source\FastEngine\Core.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\FastEngine\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\FastEngine.h">
-      <Filter>Header Files</Filter>
+      <Filter>FastEngine</Filter>
     </ClInclude>
     <ClInclude Include="Source\FastEngine\EntryPoint.h">
-      <Filter>Header Files</Filter>
+      <Filter>FastEngine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FastEngine\Events\Event.h">
+      <Filter>FastEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayerI.h">
+      <Filter>FastEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\Log.h">
+      <Filter>FastEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsWindow.h">
+      <Filter>FastEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\Window.h">
+      <Filter>FastEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\fepch.h">
+      <Filter>FastEngine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\FastEngine\Application.cpp">
+      <Filter>FastEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\Events\Event.cpp">
+      <Filter>FastEngine\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\ImGui\ImGuiLayer.cpp">
+      <Filter>FastEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\Log.cpp">
+      <Filter>FastEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp">
+      <Filter>FastEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\fepch.cpp">
+      <Filter>FastEngine</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

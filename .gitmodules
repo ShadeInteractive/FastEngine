@@ -1,0 +1,9 @@
+[submodule "FastEngine/ThirdParties/spdlog"]
+	path = FastEngine/ThirdParties/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "FastEngine/ThirdParties/imgui"]
+	path = FastEngine/ThirdParties/imgui
+	url = https://github.com/TheCherno/imgui
+[submodule "FastEngine/ThirdParties/GLFW"]
+	path = FastEngine/ThirdParties/GLFW
+	url = https://github.com/TheCherno/glfw

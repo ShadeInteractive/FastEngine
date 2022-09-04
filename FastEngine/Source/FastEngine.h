@@ -5,5 +5,6 @@
 
 #include <stdio.h>
 #include "FastEngine/Application.h"
+#include "FastEngine/log.h"
 
 #include "FastEngine/EntryPoint.h"
