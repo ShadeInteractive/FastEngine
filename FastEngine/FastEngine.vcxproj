@@ -79,7 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_DEBUG;FE_RELEASE;FE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;FE_DEBUG;FE_RELEASE;FE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
@@ -106,7 +106,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -125,7 +125,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -144,6 +144,7 @@
     <ClInclude Include="Source\FastEngine\Application.h" />
     <ClInclude Include="Source\FastEngine\Core.h" />
     <ClInclude Include="Source\FastEngine\EntryPoint.h" />
+    <ClInclude Include="Source\FastEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="Source\FastEngine\Events\Event.h" />
     <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayerI.h" />
     <ClInclude Include="Source\FastEngine\Log.h" />
@@ -153,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FastEngine\Application.cpp" />
-    <ClCompile Include="Source\FastEngine\Events\Event.cpp" />
     <ClCompile Include="Source\FastEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="Source\FastEngine\Log.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp" />

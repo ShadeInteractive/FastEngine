@@ -59,7 +59,8 @@ project "FastEngine"
 		defines
 		{
 			"FE_PLATFORM_WINDOWS",
-			"FE_BUILD_DLL"
+			"FE_BUILD_DLL",
+			"FE_ENABLE_ASSERT"
 		}
 
 		postbuildcommands

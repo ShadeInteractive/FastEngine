@@ -7,7 +7,7 @@ namespace FastEngine
 	enum class EventType
 	{
 		None = 0,
-		WindowsClose,
+		WindowsClose,WindowResize,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyRelease
 	};
@@ -22,9 +22,12 @@ namespace FastEngine
 		EventCategoryMouseButton = BIT(4)
 	};
 
-	class Event
+	class FE_API Event
 	{
-	
+		public:
+			virtual EventType GetEventType() const = 0;
+			virtual const char* GetName() const = 0;
+
 	};
 
 }

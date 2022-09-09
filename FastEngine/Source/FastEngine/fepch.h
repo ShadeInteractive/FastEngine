@@ -1,4 +1,5 @@
 #pragma once
+#pragma message("Compiling precompiled headers. \n")
 
 #include <iostream>
 #include <memory>
@@ -12,6 +13,9 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+
+#include "FastEngine/Core.h"
+#include "FastEngine/Log.h"
 
 #ifdef FE_PLATFORM_WINDOWS
 	#include <Windows.h>

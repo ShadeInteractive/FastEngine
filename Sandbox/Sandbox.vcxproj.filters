@@ -1,12 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\MyTestClass.cpp" />
-    <ClCompile Include="Source\SandbodApp.cpp" />
-    <ClCompile Include="Source\CppLearning\PointersLearning.cpp" />
+    <Filter Include="CppLearning">
+      <UniqueIdentifier>{18BF94FA-8474-0DF0-0D69-07C7791D04F4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\CppLearning\PointersLearning.h">
+      <Filter>CppLearning</Filter>
+    </ClInclude>
     <ClInclude Include="Source\MyTestClass.h" />
-    <ClInclude Include="Source\CppLearning\PointersLearning.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\CppLearning\PointersLearning.cpp">
+      <Filter>CppLearning</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MyTestClass.cpp" />
+    <ClCompile Include="Source\SandbodApp.cpp" />
   </ItemGroup>
 </Project>

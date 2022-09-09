@@ -7,7 +7,9 @@ void PointersLearning::PrintPointers()
 {
 	int var = 5;
 	std::cout << "var = " << var << " // &var reference = " << &var << std::endl;
-
+	//Create a reference (can be similar to pointer)
+	int &var_ref = var;
+	//Access the adress of the variable by &var and store it inside the pointer
 	int* var_ptr = &var;
 	std::cout << " // var_ptr= adress of variable pointer points to= " << var_ptr << std::endl << " // &var_ptr= adress of the pointer itself= " << &var_ptr << std::endl <<" // *var_ptr= Value of the variable behind adress stored in the pointer: " << *var_ptr << std::endl;
 	

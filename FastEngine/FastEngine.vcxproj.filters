@@ -46,13 +46,11 @@
     <ClInclude Include="Source\FastEngine\fepch.h">
       <Filter>FastEngine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FastEngine\Events\ApplicationEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FastEngine\Application.cpp">
       <Filter>FastEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\FastEngine\Events\Event.cpp">
-      <Filter>FastEngine\Events</Filter>
     </ClCompile>
     <ClCompile Include="Source\FastEngine\ImGui\ImGuiLayer.cpp">
       <Filter>FastEngine\ImGui</Filter>
