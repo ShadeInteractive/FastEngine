@@ -2,6 +2,11 @@
 
 #include "WindowsWindow.h"
 
+#include "FastEngine/Events/ApplicationEvent.h"
+
+#include <glad/glad.h>
+
+
 namespace FastEngine
 {
 	static bool s_GLFWInitialized = false;
@@ -30,6 +35,8 @@ namespace FastEngine
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		FE_CORE_ASSERT(status, "Failed to initialize Glad");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		
 		SetVSync(true);
@@ -41,8 +48,18 @@ namespace FastEngine
 			data.Width = width;
 			data.Height = height;
 
+			WindowResizeEvent resizeEvent(width, height);
 			//Implement a generic event callback
-			
+			data.EventCallback(resizeEvent);
+		});
+
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			WindowCloseEvent closeEvent = WindowCloseEvent();
+			data.EventCallback(closeEvent);
+
 		});
 	}
 
@@ -72,4 +89,5 @@ namespace FastEngine
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
+	
 }

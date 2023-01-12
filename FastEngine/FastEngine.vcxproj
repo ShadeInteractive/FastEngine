@@ -79,8 +79,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;FE_DEBUG;FE_RELEASE;FE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;FE_DEBUG;FE_RELEASE;FE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -106,8 +106,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -125,8 +125,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -147,6 +147,8 @@
     <ClInclude Include="Source\FastEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="Source\FastEngine\Events\Event.h" />
     <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayerI.h" />
+    <ClInclude Include="Source\FastEngine\Layer.h" />
+    <ClInclude Include="Source\FastEngine\LayerStack.h" />
     <ClInclude Include="Source\FastEngine\Log.h" />
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="Source\FastEngine\Window.h" />
@@ -155,6 +157,8 @@
   <ItemGroup>
     <ClCompile Include="Source\FastEngine\Application.cpp" />
     <ClCompile Include="Source\FastEngine\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="Source\FastEngine\Layer.cpp" />
+    <ClCompile Include="Source\FastEngine\LayerStack.cpp" />
     <ClCompile Include="Source\FastEngine\Log.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="Source\FastEngine\fepch.cpp">
@@ -164,6 +168,9 @@
   <ItemGroup>
     <ProjectReference Include="ThirdParties\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="ThirdParties\Glad\Glad.vcxproj">
+      <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
     </ProjectReference>
     <ProjectReference Include="ThirdParties\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>

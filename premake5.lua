@@ -14,9 +14,11 @@ IncludeDir = {}
 
 IncludeDir["GLFW"] = "FastEngine/ThirdParties/GLFW/include"
 IncludeDir["ImGui"] = "FastEngine/ThirdParties/imgui/include"
+IncludeDir["Glad"] = "FastEngine/ThirdParties/Glad/include"
 
 include "FastEngine/ThirdParties/imgui"
 include "FastEngine/ThirdParties/GLFW"
+include "FastEngine/ThirdParties/Glad"
 
 project "FastEngine"
 	location "FastEngine"
@@ -40,12 +42,14 @@ project "FastEngine"
 		"%{prj.name}/Source",
 		"%{prj.name}/ThirdParties/spdlog/include;",
 		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib",
 		"ImGui"
 
@@ -60,7 +64,8 @@ project "FastEngine"
 		{
 			"FE_PLATFORM_WINDOWS",
 			"FE_BUILD_DLL",
-			"FE_ENABLE_ASSERT"
+			"FE_ENABLE_ASSERT",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -107,7 +112,7 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++11"
 		staticruntime "On"
 		systemversion "latest"
 

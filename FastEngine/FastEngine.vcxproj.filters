@@ -28,11 +28,20 @@
     <ClInclude Include="Source\FastEngine\EntryPoint.h">
       <Filter>FastEngine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FastEngine\Events\ApplicationEvent.h">
+      <Filter>FastEngine\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Source\FastEngine\Events\Event.h">
       <Filter>FastEngine\Events</Filter>
     </ClInclude>
     <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayerI.h">
       <Filter>FastEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\Layer.h">
+      <Filter>FastEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\LayerStack.h">
+      <Filter>FastEngine</Filter>
     </ClInclude>
     <ClInclude Include="Source\FastEngine\Log.h">
       <Filter>FastEngine</Filter>
@@ -46,7 +55,6 @@
     <ClInclude Include="Source\FastEngine\fepch.h">
       <Filter>FastEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FastEngine\Events\ApplicationEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FastEngine\Application.cpp">
@@ -54,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="Source\FastEngine\ImGui\ImGuiLayer.cpp">
       <Filter>FastEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\Layer.cpp">
+      <Filter>FastEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\LayerStack.cpp">
+      <Filter>FastEngine</Filter>
     </ClCompile>
     <ClCompile Include="Source\FastEngine\Log.cpp">
       <Filter>FastEngine</Filter>

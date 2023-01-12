@@ -1,5 +1,7 @@
 #pragma once
 
+#include "fepch.h"
+
 #include "FastEngine/Core.h"
 
 namespace FastEngine
@@ -7,7 +9,7 @@ namespace FastEngine
 	enum class EventType
 	{
 		None = 0,
-		WindowsClose,WindowResize,
+		WindowClose,WindowResize,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyRelease
 	};
@@ -28,6 +30,10 @@ namespace FastEngine
 			virtual EventType GetEventType() const = 0;
 			virtual const char* GetName() const = 0;
 
+			virtual std::string ToString() const { return GetName(); }
+			bool Handled;
 	};
+
+	
 
 }

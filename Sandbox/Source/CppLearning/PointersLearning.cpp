@@ -7,7 +7,7 @@ void PointersLearning::PrintPointers()
 {
 	int var = 5;
 	std::cout << "var = " << var << " // &var reference = " << &var << std::endl;
-	//Create a reference (can be similar to pointer)
+	//Create a reference (can be similar to pointer, it's an alias to a variable)
 	int &var_ref = var;
 	//Access the adress of the variable by &var and store it inside the pointer
 	int* var_ptr = &var;
@@ -34,17 +34,78 @@ void PointersLearning::PrintPointers()
 	//std::cout << "var_ptr_2 is array of pointer. AdressVariable_Id1: " << &var_ptr_2[0] << " - VariableValue_Id1: " << var_ptr_2[0] << " - index 2: " << var_ptr_2[1] << std::endl;
 	delete[] var_ptr_2;
 	
+	/*
+	* Access content of a pointer 
+	*/
 	int* var_ptr_3 = new int;
-	*var_ptr_3 = 25;
 	std::cout << "var_ptr_3 is a simple pointer. " << var_ptr_3 << " " << *var_ptr_3 << std::endl;
+	//Output: *var_ptr_3 = 25;
 	delete var_ptr_3;
 
+	/*
+	* Different types of const pointers
+	*/
 	int x;
-	int *       p1 = &x;  // non-const pointer to non-const int
-	const int *       p2 = &x;  // non-const pointer to const int
+	int *p1 = &x;  // non-const pointer to non-const int
+	const int * p2 = &x;  // non-const pointer to const int
 	int * const p3 = &x;  // const pointer to non-const int
 	const int * const p4 = &x;  // const pointer to const int 
 
+	/*
+	* Vectors & Iterators
+	*/
+	std::vector<int> vect(5, 10);
+	std::cout << "Display content of vector with for loop:" << std::endl;
+	for(int x : vect)
+		std::cout << x << " ";
+
+	std::cout << std::endl;
+
+	/*
+	* Create array and use begin and end for revers iteration
+	*/
+	std::vector<int> myVector;
+	myVector.push_back(10);
+	myVector.push_back(5);
+	myVector.push_back(3);
+
+	//First iterate normally
+	std::cout << "Display content of vector with for loop using begin and end:" << std::endl;
+	for (auto it = myVector.begin(); it != myVector.end(); it++)
+	{
+		std::cout << " " << *it;
+		if(myVector.back() == *it)
+		{
+			std::cout << " " << std::endl;
+		}
+	}
+
+	for(auto it = myVector.rbegin(); it!= myVector.rend(); it++)
+	{
+		std::cout <<  " " << *it;
+		if (*(myVector.begin()) == *it)
+		{
+			std::cout << " " << std::endl;
+		}
+	}
+
+	for(auto it = myVector.end()-1; it!= myVector.begin()-1; --it)
+	{
+		std::cout << " " << *it;
+		if(it+1 == myVector.begin())
+		{
+			std::cout << " " << std::endl;
+		}
+	}
+
+	for(auto it = myVector.end(); it != myVector.begin();)
+	{ 
+		std::cout << " " << *(--it);
+	}
+
+	/*
+	* Create a custom shared pointer
+	*/
 	SharedPointer sPtrInt = SharedPointer(new int(12));
 	std::cout << "Create a first shared pointer. The value set is: " << * sPtrInt.get() << std::endl;
 	
@@ -60,6 +121,8 @@ void PointersLearning::PrintPointers()
 	}
 
 	std::cout << "Value: " << *sPtrInt << std::endl;
+
+
 }
 
 SharedPointer::SharedPointer(int* ptr)

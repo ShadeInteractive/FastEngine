@@ -1,7 +1,22 @@
 #include <FastEngine.h>
 #include <bitset>
 #include "CppLearning/PointersLearning.h"
+
 extern int my_external_var;
+
+
+class TestLayer : public FastEngine::Layer
+{
+public:
+	TestLayer()
+		:Layer("Example")
+	{}
+
+	void OnEvent(FastEngine::Event& event) override
+	{
+		//FE_TRACE("{0}", event);
+	}
+};
 
 //This extern is not mandatory 
 //because definition is happening here.
@@ -12,7 +27,7 @@ class Sandbox : public FastEngine::Application
 	public:
 		Sandbox()
 		{
-		
+			PushLayer(new TestLayer());
 		}
 
 		~Sandbox()
@@ -61,6 +76,9 @@ int user_main_in_app()
 
 int main_ret_app= user_main_in_app();
 
+/*
+* This is an extern method declared inside Fast Engine and called when the engine starts.
+*/
 FastEngine::Application* FastEngine::CreateApplication()
 {
 	std::cout << "Sandbox implementation of Create application." << "\n";

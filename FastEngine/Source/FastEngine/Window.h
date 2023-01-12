@@ -1,6 +1,7 @@
 #pragma once
-
 #include "fepch.h"
+
+#include "FastEngine/Events/Event.h"
 
 namespace FastEngine
 {
@@ -20,7 +21,11 @@ namespace FastEngine
 	class Window
 	{
 		public:
+			//Define a new type that will avoid typing all the time "std::function<void>(Event&)"
+			using EventCallbackFn = std::function<void(Event&)>;
+
 			virtual void OnUpdate() = 0;
+			virtual void SetEventCallback(std::function<void(Event&)> callback) = 0;
 
 			static Window* Create(const WidowProperties& windowProperties = WidowProperties());
 
