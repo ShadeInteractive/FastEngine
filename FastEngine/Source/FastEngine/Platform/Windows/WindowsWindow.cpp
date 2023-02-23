@@ -3,6 +3,7 @@
 #include "WindowsWindow.h"
 
 #include "FastEngine/Events/ApplicationEvent.h"
+#include "FastEngine/Events/MouseEvent.h"
 
 #include <glad/glad.h>
 
@@ -61,6 +62,43 @@ namespace FastEngine
 			data.EventCallback(closeEvent);
 
 		});
+
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y)
+		{
+			FE_LOG("Cursor Callback x:{0} y:{1} ", x, y);
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			data.MouseX = x;
+			data.MouseY = y;
+			MouseMovedEvent mouseMoveEvent(x, y);
+			data.EventCallback(mouseMoveEvent);
+		});
+
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			FE_LOG("Mouse button callback. Button: {0} action: {1} ", button, action);
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			if(action == 1)
+			{
+				MouseButtonPressed mousePressEvent(button);
+				data.EventCallback(mousePressEvent);
+			}
+			if(action == 0)
+			{
+				MouseButtonReleased mouseReleaseEvent(button);
+				data.EventCallback(mouseReleaseEvent);
+			}
+
+
+			//MouseButtonPressed mouseButtonPressedEvent()
+		});
+
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xoffset, double yoffset)
+		{
+			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
+			
+			MouseScrolledEvent mouseScrolledEvent(xoffset, yoffset);
+			data.EventCallback(mouseScrolledEvent);
+		});
 	}
 
 	WindowsWindow::~WindowsWindow()
@@ -88,6 +126,16 @@ namespace FastEngine
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
+	}
+
+	unsigned int WindowsWindow::GetWidth()
+	{
+		return m_Data.Width;
+	}
+
+	unsigned int WindowsWindow::GetHeight()
+	{
+		return m_Data.Height;
 	}
 	
 }

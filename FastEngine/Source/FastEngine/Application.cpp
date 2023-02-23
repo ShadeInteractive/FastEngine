@@ -5,17 +5,20 @@
 
 namespace FastEngine
 {
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
-		m_Window = std::unique_ptr<Window>(Window::Create(WidowProperties("test", 500, 800)));
+		FE_CORE_ASSERT(!s_Instance,  "Application already exists.")
+		s_Instance = this;
+		
+		m_Window = std::unique_ptr<Window>(Window::Create(WidowProperties("test", 720, 720)));
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 
-		m_LayerStack = new LayerStack();
 	}
 
 	Application::~Application()
 	{
-		delete m_LayerStack;
 	}
 
 	void Application::Run()
@@ -25,24 +28,36 @@ namespace FastEngine
 			glClearColor(1,0,1,1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			for(Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
 			m_Window->OnUpdate();
 		}
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
-		m_LayerStack->PushLayer(layer);
+		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
 		if(e.GetEventType() == WindowCloseEvent::GetStaticType())
 		{
+			//Gets address of an event(type Event) and Type cast it as a point of type WindowCloseEvent. 
+			//!!We should be sure it's that type otherwise it's not going to work. 
 			WindowCloseEvent* my_close_event = (WindowCloseEvent *) &e;
 			OnWindowClosed(*my_close_event);
 		}
-		
-		for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();)
+
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
 			(*--it)->OnEvent(e);
 			if(e.Handled)

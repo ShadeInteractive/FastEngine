@@ -9,4 +9,6 @@
 #include "FastEngine/Layer.h"
 #include "FastEngine/LayerStack.h"
 
+#include "FastEngine/ImGui/ImGuiLayer.h"
+
 #include "FastEngine/EntryPoint.h"

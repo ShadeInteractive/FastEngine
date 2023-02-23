@@ -24,21 +24,21 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -54,21 +54,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Binaries\Debug-windows-x86_64\FastEngine\</OutDir>
     <IntDir>..\Intermediate\Debug-windows-x86_64\FastEngine\</IntDir>
     <TargetName>FastEngine</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Binaries\Release-windows-x86_64\FastEngine\</OutDir>
     <IntDir>..\Intermediate\Release-windows-x86_64\FastEngine\</IntDir>
     <TargetName>FastEngine</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Binaries\Dist-windows-x86_64\FastEngine\</OutDir>
     <IntDir>..\Intermediate\Dist-windows-x86_64\FastEngine\</IntDir>
     <TargetName>FastEngine</TargetName>
@@ -79,21 +79,16 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;FE_DEBUG;FE_RELEASE;FE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <Optimization>Full</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;FE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>..\Binaries\Debug-windows-x86_64\FastEngine\FastEngine.lib</ImportLibrary>
     </Link>
@@ -106,13 +101,20 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;FE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>..\Binaries\Release-windows-x86_64\FastEngine\FastEngine.lib</ImportLibrary>
     </Link>
@@ -125,13 +127,20 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>fepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>FE_PLATFORM_WINDOWS;FE_BUILD_DLL;FE_ENABLE_ASSERT;GLFW_INCLUDE_NONE;FE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;ThirdParties\spdlog\include;;ThirdParties\GLFW\include;ThirdParties\Glad\include;ThirdParties\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>..\Binaries\Dist-windows-x86_64\FastEngine\FastEngine.lib</ImportLibrary>
     </Link>
@@ -146,10 +155,12 @@
     <ClInclude Include="Source\FastEngine\EntryPoint.h" />
     <ClInclude Include="Source\FastEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="Source\FastEngine\Events\Event.h" />
-    <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayerI.h" />
+    <ClInclude Include="Source\FastEngine\Events\MouseEvent.h" />
+    <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayer.h" />
     <ClInclude Include="Source\FastEngine\Layer.h" />
     <ClInclude Include="Source\FastEngine\LayerStack.h" />
     <ClInclude Include="Source\FastEngine\Log.h" />
+    <ClInclude Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="Source\FastEngine\Window.h" />
     <ClInclude Include="Source\FastEngine\fepch.h" />
@@ -160,6 +171,7 @@
     <ClCompile Include="Source\FastEngine\Layer.cpp" />
     <ClCompile Include="Source\FastEngine\LayerStack.cpp" />
     <ClCompile Include="Source\FastEngine\Log.cpp" />
+    <ClCompile Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="Source\FastEngine\fepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

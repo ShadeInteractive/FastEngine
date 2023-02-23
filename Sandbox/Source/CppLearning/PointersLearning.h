@@ -31,4 +31,6 @@ class PointersLearning
 {
 	public:
 		void PrintPointers();
+
+		static void BoolParameterPointer(bool* p_open);
 };

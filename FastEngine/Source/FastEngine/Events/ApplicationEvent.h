@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-#include "FastEngine/Events/ApplicationEvent.h"
+//#include "FastEngine/Events/ApplicationEvent.h"
 
 namespace FastEngine
 {
@@ -15,9 +15,7 @@ namespace FastEngine
 				: m_Width(width) , m_Height(height) {}
 		
 			// TODO: Should be moved to a macro
-			static EventType GetStaticType(){return EventType::WindowResize;};
-			virtual EventType GetEventType() const override {return GetStaticType(); };
-			virtual const char* GetName() const override {return "WindowResizeEvent"; }
+			ADD_EVENT_FUNCTIONS(WindowResize)
 			
 			std::string ToString() const override
 			{
@@ -35,11 +33,15 @@ namespace FastEngine
 	class FE_API WindowCloseEvent : public Event
 	{
 		public:
+			WindowCloseEvent() {}
+
+			ADD_EVENT_FUNCTIONS(WindowClose)
 			// TODO: Should be moved to a macro
-			static EventType GetStaticType(){return EventType::WindowClose;};
-			virtual EventType GetEventType() const override {return GetStaticType(); };
-			virtual const char* GetName() const override {return "WindowCloseEvent"; };
+			//static EventType GetStaticType(){return EventType::WindowClose;};
+			//virtual EventType GetEventType() const override {return GetStaticType(); };
+			//virtual const char* GetName() const override {return "WindowCloseEvent"; };
 		
 	};
+
 }
 

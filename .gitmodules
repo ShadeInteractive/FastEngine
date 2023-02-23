@@ -6,4 +6,4 @@
 	url = https://github.com/TheCherno/imgui
 [submodule "FastEngine/ThirdParties/GLFW"]
 	path = FastEngine/ThirdParties/GLFW
-	url = https://github.com/TheCherno/glfw
+	url = https://github.com/glfw/glfw.git

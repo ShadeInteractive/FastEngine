@@ -11,6 +11,7 @@ namespace FastEngine
 		std::string Title;
 		unsigned int Width, Height;
 		bool VSync;
+		double MouseX, MouseY;
 		//This function returns void and needs Event as parameter
 		std::function<void(Event&)> EventCallback;
 	};
@@ -27,6 +28,8 @@ namespace FastEngine
 		void Destroy();
 
 		void OnUpdate() override;
+		unsigned int GetWidth() override;
+		unsigned int GetHeight() override;
 
 		inline  void SetEventCallback(std::function<void(Event&)> callback) override {m_Data.EventCallback = callback; }
 	private:

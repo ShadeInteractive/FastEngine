@@ -13,7 +13,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 
 IncludeDir["GLFW"] = "FastEngine/ThirdParties/GLFW/include"
-IncludeDir["ImGui"] = "FastEngine/ThirdParties/imgui/include"
+IncludeDir["ImGui"] = "FastEngine/ThirdParties/imgui"
 IncludeDir["Glad"] = "FastEngine/ThirdParties/Glad/include"
 
 include "FastEngine/ThirdParties/imgui"
@@ -24,6 +24,8 @@ project "FastEngine"
 	location "FastEngine"
 	kind "SharedLib"
 	language "C++"
+	toolset "v143"
+	
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -75,14 +77,17 @@ project "FastEngine"
 
 	filter "configurations:Debug"
 		defines "FE_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
-	filter "configurations:Debug"
+	filter "configurations:Release"
 		defines "FE_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
-	filter "configurations:Debug"
+	filter "configurations:Dist"
 		defines "FE_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -115,6 +120,7 @@ project "Sandbox"
 		cppdialect "C++11"
 		staticruntime "On"
 		systemversion "latest"
+		toolset "v143"
 
 		defines
 		{
@@ -123,12 +129,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "FE_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
-	filter "configurations:Debug"
+	filter "configurations:Release"
 		defines "FE_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
-	filter "configurations:Debug"
+	filter "configurations:Dist"
 		defines "FE_DIST"
+		buildoptions "/MD"
 		optimize "On"

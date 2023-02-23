@@ -18,6 +18,20 @@ public:
 	}
 };
 
+class TestLayer2 : public FastEngine::Layer
+{
+public:
+	TestLayer2()
+		:Layer("Example2")
+	{}
+
+	void OnEvent(FastEngine::Event& event) override
+	{
+		//FE_TRACE("{0}", event);
+	}
+};
+
+
 //This extern is not mandatory 
 //because definition is happening here.
 extern const char* valueDefinedInProject = "Sandbox";
@@ -28,6 +42,8 @@ class Sandbox : public FastEngine::Application
 		Sandbox()
 		{
 			PushLayer(new TestLayer());
+			PushLayer(new TestLayer2());
+			PushOverlay(new FastEngine::ImGuiLayer());
 		}
 
 		~Sandbox()

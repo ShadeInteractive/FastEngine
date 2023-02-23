@@ -27,6 +27,9 @@ namespace FastEngine
 			virtual void OnUpdate() = 0;
 			virtual void SetEventCallback(std::function<void(Event&)> callback) = 0;
 
+			virtual unsigned int GetWidth() = 0;
+			virtual unsigned int GetHeight() = 0;
+
 			static Window* Create(const WidowProperties& windowProperties = WidowProperties());
 
 	};

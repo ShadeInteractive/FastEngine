@@ -5,6 +5,11 @@
 
 void PointersLearning::PrintPointers()
 {
+	bool isBoolean = true;
+	PointersLearning::BoolParameterPointer(&isBoolean);
+	bool* isBooleanPointer = &isBoolean;
+	PointersLearning::BoolParameterPointer(isBooleanPointer);
+
 	int var = 5;
 	std::cout << "var = " << var << " // &var reference = " << &var << std::endl;
 	//Create a reference (can be similar to pointer, it's an alias to a variable)
@@ -80,6 +85,7 @@ void PointersLearning::PrintPointers()
 		}
 	}
 
+	//Reverse iteration (However I don't understand how it works :))
 	for(auto it = myVector.rbegin(); it!= myVector.rend(); it++)
 	{
 		std::cout <<  " " << *it;
@@ -89,19 +95,81 @@ void PointersLearning::PrintPointers()
 		}
 	}
 
-	for(auto it = myVector.end()-1; it!= myVector.begin()-1; --it)
-	{
-		std::cout << " " << *it;
-		if(it+1 == myVector.begin())
-		{
-			std::cout << " " << std::endl;
-		}
-	}
-
+	//Reverse iteration
 	for(auto it = myVector.end(); it != myVector.begin();)
 	{ 
 		std::cout << " " << *(--it);
+		if(it == myVector.begin())
+		{
+			std::cout << std::endl;
+		}
 	}
+
+	std::cout << std::endl;
+	
+	/*
+	* A Stack is a container where elements are inserted and extracted from one side of the container (generally top)
+	* This is LIFO (Last-in first-out)  -> Last product in the stack are the first to get out
+	* 
+	* Technical objective: 
+	**** Store the top (index or pointer) in order to "Push" and "Pop" 
+	* 
+	* Stack is used for example in game engine to keep a stack of rendering layer (Editor - Render - UI) 
+	*/
+
+	std::vector<int> myList;
+	//Emplace gets vector iterator and insert 
+	/*
+	myList.push_back(1);
+	myList.push_back(2);
+	myList.push_back(3);
+	myList.push_back(99);
+	*/
+
+	std::vector<int>::iterator itTopLayer = myList.begin();
+	int layerInsertIndex = 0;
+	itTopLayer = myList.emplace(itTopLayer, 1);
+	std::cout << " " << * myList.begin();
+	itTopLayer = myList.emplace(itTopLayer, 2);
+	std::cout << " " << * myList.begin();
+	itTopLayer = myList.emplace(itTopLayer, 3);
+	std::cout << " " << * myList.begin();
+	itTopLayer = myList.emplace(itTopLayer, 22);
+	std::cout << " " << * myList.begin();
+	std::cout << *(itTopLayer) <<std::endl;
+	for(auto it = myList.begin(); it != myList.end(); it++)
+	{
+		std::cout << " " << *(it);
+		if(it+1 == myList.end())
+		{
+			std::cout << std::endl;
+		}
+	}
+	
+	//auto tempItToRemove = std::find(myList.begin(), myList.end(), 1);
+	//myList.erase(tempItToRemove);
+	//itTopLayer--;
+	std::cout << *(itTopLayer) <<std::endl;
+
+	for(auto it = myList.begin(); it != myList.end(); it++)
+	{
+		std::cout << " " << *(it);
+	}
+	std::cout << std::endl;
+
+	//myList.emplace_back(4);
+	//std::cout << *(itTopLayer) << std::endl;
+	//myList.emplace_back(5);
+	//std::cout << *(itTopLayer) << std::endl;
+
+	itTopLayer = myList.emplace(itTopLayer, 6);
+	for(auto it = myList.begin(); it != myList.end();it++)
+	{
+		std::cout << " " << *(it);
+		if(it == myList.end())
+			std::cout << " test " << std::endl;
+	}
+	
 
 	/*
 	* Create a custom shared pointer
@@ -123,6 +191,11 @@ void PointersLearning::PrintPointers()
 	std::cout << "Value: " << *sPtrInt << std::endl;
 
 
+}
+
+void PointersLearning::BoolParameterPointer(bool* p_open)
+{
+	std::cout << *p_open << std::endl;
 }
 
 SharedPointer::SharedPointer(int* ptr)
