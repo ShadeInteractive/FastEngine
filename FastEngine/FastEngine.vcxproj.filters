@@ -37,8 +37,14 @@
     <ClInclude Include="Source\FastEngine\Events\Event.h">
       <Filter>FastEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FastEngine\Events\MouseEvent.h">
+      <Filter>FastEngine\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayer.h">
       <Filter>FastEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FastEngine\Input.h">
+      <Filter>FastEngine</Filter>
     </ClInclude>
     <ClInclude Include="Source\FastEngine\Layer.h">
       <Filter>FastEngine</Filter>
@@ -52,6 +58,9 @@
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>FastEngine\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsInput.h">
+      <Filter>FastEngine\Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsWindow.h">
       <Filter>FastEngine\Platform\Windows</Filter>
     </ClInclude>
@@ -61,7 +70,6 @@
     <ClInclude Include="Source\FastEngine\fepch.h">
       <Filter>FastEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FastEngine\Events\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FastEngine\Application.cpp">
@@ -81,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>FastEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsInput.cpp">
+      <Filter>FastEngine\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp">
       <Filter>FastEngine\Platform\Windows</Filter>

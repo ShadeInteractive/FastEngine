@@ -6,6 +6,7 @@
 #include "Events/ApplicationEvent.h"
 #include "Events/MouseEvent.h"
 #include "Window.h"
+
 namespace FastEngine
 {
 	class FE_API Application

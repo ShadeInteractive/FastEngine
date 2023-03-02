@@ -9,6 +9,9 @@
 #include "FastEngine/Layer.h"
 #include "FastEngine/LayerStack.h"
 
+#include "FastEngine/Input.h"
+#include "FastEngine/KeyCodes.h"
+
 #include "FastEngine/ImGui/ImGuiLayer.h"
 
 #include "FastEngine/EntryPoint.h"

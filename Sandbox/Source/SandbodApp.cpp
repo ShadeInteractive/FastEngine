@@ -12,6 +12,12 @@ public:
 		:Layer("Example")
 	{}
 
+	inline void OnUpdate()
+	{
+		if(FastEngine::Input::IsKeyPressed(FE_KEY_TAB))
+			FE_TRACE("Tab key pressed. KeyCode= {0}", FE_KEY_TAB);
+	}
+
 	void OnEvent(FastEngine::Event& event) override
 	{
 		//FE_TRACE("{0}", event);
@@ -27,6 +33,7 @@ public:
 
 	void OnEvent(FastEngine::Event& event) override
 	{
+		
 		//FE_TRACE("{0}", event);
 	}
 };

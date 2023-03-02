@@ -27,9 +27,10 @@ namespace FastEngine
 
 		void Destroy();
 
-		void OnUpdate() override;
-		unsigned int GetWidth() override;
-		unsigned int GetHeight() override;
+		virtual void OnUpdate() override;
+		virtual unsigned int GetWidth() override;
+		virtual unsigned int GetHeight() override;
+		virtual inline void* GetRawWindow() override {return m_Window;}
 
 		inline  void SetEventCallback(std::function<void(Event&)> callback) override {m_Data.EventCallback = callback; }
 	private:
@@ -38,5 +39,8 @@ namespace FastEngine
 		GLFWwindow* m_Window;
 
 		
+
+		// Inherited via Window
+
 	};
 }

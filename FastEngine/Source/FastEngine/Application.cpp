@@ -1,6 +1,6 @@
 #include "fepch.h"
 #include "Application.h"
-
+#include "Input.h"
 #include <glad/glad.h>
 
 namespace FastEngine
@@ -32,6 +32,9 @@ namespace FastEngine
 				layer->OnUpdate();
 
 			m_Window->OnUpdate();
+
+			//bool aPressed = Input::IsKeyPressed(FE_KEY_A);
+			//FE_TRACE("A pressed {0} ", aPressed);
 		}
 	}
 

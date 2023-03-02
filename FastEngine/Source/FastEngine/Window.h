@@ -29,6 +29,8 @@ namespace FastEngine
 
 			virtual unsigned int GetWidth() = 0;
 			virtual unsigned int GetHeight() = 0;
+			
+			virtual void* GetRawWindow() = 0;
 
 			static Window* Create(const WidowProperties& windowProperties = WidowProperties());
 

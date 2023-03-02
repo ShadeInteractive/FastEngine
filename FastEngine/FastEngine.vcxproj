@@ -157,10 +157,12 @@
     <ClInclude Include="Source\FastEngine\Events\Event.h" />
     <ClInclude Include="Source\FastEngine\Events\MouseEvent.h" />
     <ClInclude Include="Source\FastEngine\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="Source\FastEngine\Input.h" />
     <ClInclude Include="Source\FastEngine\Layer.h" />
     <ClInclude Include="Source\FastEngine\LayerStack.h" />
     <ClInclude Include="Source\FastEngine\Log.h" />
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="Source\FastEngine\Window.h" />
     <ClInclude Include="Source\FastEngine\fepch.h" />
@@ -172,6 +174,7 @@
     <ClCompile Include="Source\FastEngine\LayerStack.cpp" />
     <ClCompile Include="Source\FastEngine\Log.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="Source\FastEngine\fepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
