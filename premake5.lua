@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "FastEngine/ThirdParties/GLFW/include"
 IncludeDir["ImGui"] = "FastEngine/ThirdParties/imgui"
 IncludeDir["Glad"] = "FastEngine/ThirdParties/Glad/include"
+IncludeDir["glm"] = "FastEngine/ThirdParties/glm"
 
 include "FastEngine/ThirdParties/imgui"
 include "FastEngine/ThirdParties/GLFW"
@@ -22,10 +23,11 @@ include "FastEngine/ThirdParties/Glad"
 
 project "FastEngine"
 	location "FastEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
 	toolset "v143"
-	
+	staticruntime "on"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -36,7 +38,14 @@ project "FastEngine"
 	files
 	{
 		"%{prj.name}/Source/**.h",
-		"%{prj.name}/Source/**.cpp"
+		"%{prj.name}/Source/**.cpp",
+		"%{prj.name}/ThirdParties/glm/glm/**.hpp",
+		"%{prj.name}/ThirdParties/glm/glm/**.inl"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -45,7 +54,8 @@ project "FastEngine"
 		"%{prj.name}/ThirdParties/spdlog/include;",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -58,8 +68,7 @@ project "FastEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++11"
-		staticruntime "On"
+		staticruntime "on"
 		systemversion "latest"
 
 		defines
@@ -70,31 +79,26 @@ project "FastEngine"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../Binaries/" .. outputdir .. "/Sandbox")
-		}
-
 	filter "configurations:Debug"
 		defines "FE_DEBUG"
 		buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "FE_RELEASE"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "FE_DIST"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
-
 	language "C++"
+	cppdialect "C++17"
 
 	targetdir ("Binaries/" .. outputdir .. "/%{prj.name}")
 	objdir ("Intermediate/" .. outputdir .. "/%{prj.name}")
@@ -108,7 +112,8 @@ project "Sandbox"
 	includedirs
 	{
 		"FastEngine/ThirdParties/spdlog/include;",
-		"FastEngine/Source"
+		"FastEngine/Source",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -117,8 +122,7 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++11"
-		staticruntime "On"
+		staticruntime "on"
 		systemversion "latest"
 		toolset "v143"
 
@@ -130,14 +134,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "FE_DEBUG"
 		buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "FE_RELEASE"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "FE_DIST"
 		buildoptions "/MD"
-		optimize "On"
+		optimize "on"

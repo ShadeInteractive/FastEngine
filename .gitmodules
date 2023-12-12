@@ -7,3 +7,6 @@
 [submodule "FastEngine/ThirdParties/GLFW"]
 	path = FastEngine/ThirdParties/GLFW
 	url = https://github.com/glfw/glfw.git
+[submodule "FastEngine/ThirdParties/glm"]
+	path = FastEngine/ThirdParties/glm
+	url = https://github.com/g-truc/glm

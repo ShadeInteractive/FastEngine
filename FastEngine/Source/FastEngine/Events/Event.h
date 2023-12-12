@@ -39,7 +39,7 @@ namespace FastEngine
 			virtual const char* GetName() const = 0;
 
 			virtual std::string ToString() const { return GetName(); }
-			bool Handled;
+			bool Handled = true;
 	};
 
 	class FE_API EventDispatcher

@@ -5,7 +5,7 @@
 #include "FastEngine/Events/ApplicationEvent.h"
 #include "FastEngine/Events/MouseEvent.h"
 
-#include <glad/glad.h>
+#include "FastEngine/Platform/OpenGL/OpenGLContext.h"
 
 
 namespace FastEngine
@@ -35,11 +35,11 @@ namespace FastEngine
 		FE_CORE_ASSERT(success, "Could not init GLFW.");
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		FE_CORE_ASSERT(status, "Failed to initialize Glad");
-		glfwSetWindowUserPointer(m_Window, &m_Data);
 		
+		m_GraphicsContext = new OpenGLContext(m_Window);
+		m_GraphicsContext->Init();
+
+		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width,int height)
@@ -96,7 +96,7 @@ namespace FastEngine
 		{
 			WindowData& data = *(WindowData*) glfwGetWindowUserPointer(window);
 			
-			MouseScrolledEvent mouseScrolledEvent(xoffset, yoffset);
+			MouseScrolledEvent mouseScrolledEvent((float)xoffset, (float)yoffset);
 			data.EventCallback(mouseScrolledEvent);
 		});
 	}
@@ -125,7 +125,7 @@ namespace FastEngine
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_GraphicsContext->SwapBuffers();
 	}
 
 	unsigned int WindowsWindow::GetWidth()

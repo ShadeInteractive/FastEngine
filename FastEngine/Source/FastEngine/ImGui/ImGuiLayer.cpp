@@ -69,7 +69,7 @@ namespace FastEngine
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		Window& window = app.GetWindow();
-		io.DisplaySize = ImVec2(window.GetWidth(), window.GetHeight());
+		io.DisplaySize = ImVec2((float)window.GetWidth(), (float)window.GetHeight());
 
 
 		float time = (float)glfwGetTime();
@@ -108,7 +108,7 @@ namespace FastEngine
 
 		MouseMovedEvent* eventm = (MouseMovedEvent*)&e;
 		ImGuiIO& io = ImGui::GetIO();
-		io.MousePos = ImVec2(eventm->GetMouseX(), eventm->GetMouseY());
+		io.MousePos = ImVec2((float)eventm->GetMouseX(),(float)eventm->GetMouseY());
 		return true;
 	}
 

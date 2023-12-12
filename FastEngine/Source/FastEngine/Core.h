@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef FE_PLATFORM_WINDOWS
+#if FE_DYNAMIC_DLL
 	#ifdef FE_BUILD_DLL
 		#define FE_API __declspec( dllexport )
 	#else
 		#define FE_API __declspec( dllimport )
 	#endif
+#else
+	#define FE_API
+#endif
 #else
 	#error Fast Engine only supports Windows!
 #endif

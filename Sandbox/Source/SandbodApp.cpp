@@ -2,6 +2,8 @@
 #include <bitset>
 #include "CppLearning/PointersLearning.h"
 
+
+
 extern int my_external_var;
 
 

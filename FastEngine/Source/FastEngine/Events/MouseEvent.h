@@ -9,7 +9,7 @@ namespace FastEngine
 	{
 	public:
 		MouseMovedEvent(double x, double y)
-			:m_MouseX(x), m_MouseY(y){}
+			:m_MouseX((float)x), m_MouseY((float)y){}
 		
 		ADD_EVENT_FUNCTIONS(MouseMoved)
 

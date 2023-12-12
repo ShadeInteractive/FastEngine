@@ -4,6 +4,8 @@
 #include "FastEngine/Events/Event.h"
 #include <GLFW/glfw3.h>
 
+#include "FastEngine/Renderer/Context.h"
+
 namespace FastEngine
 {
 	struct WindowData
@@ -37,7 +39,7 @@ namespace FastEngine
 		WindowData m_Data;
 		
 		GLFWwindow* m_Window;
-
+		Context* m_GraphicsContext;
 		
 
 		// Inherited via Window
