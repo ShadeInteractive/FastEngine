@@ -9,6 +9,7 @@
 
 
 #include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
 
 namespace FastEngine
 {
@@ -40,6 +41,8 @@ namespace FastEngine
 			unsigned int m_VertexArray, m_TriangleVertexBuffer, m_SquareVertexBuffer, m_TriangleIndexBuffer, m_SquareIndexBuffer;
 
 			std::unique_ptr<Shader> m_Shader;
+			std::unique_ptr<VertexBuffer> m_VertexBuffer;
+			std::unique_ptr<IndexBuffer> m_IndexBuffer;
 
 			static Application* s_Instance;
 

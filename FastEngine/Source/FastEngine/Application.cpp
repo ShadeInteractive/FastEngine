@@ -3,7 +3,7 @@
 #include "Input.h"
 #include <glad/glad.h>
 
-
+#include "Renderer/Buffer.h"
 
 
 namespace FastEngine
@@ -64,31 +64,30 @@ namespace FastEngine
 		
 		m_Window = std::unique_ptr<Window>(Window::Create(WidowProperties("test", 720, 720)));
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
-
-		// Vertex array (buffer) is data stored on the GPU. This data is a mix of vertices, indices, ... 
-		// Once vertex buffer is on the gpu we can call the gpu to render this vertex buffer
-		glGenVertexArrays(2, m_VertexArrays); // Create two vertex arrays -> this method return the indexes of vertex arrays created
-		glBindVertexArray(m_VertexArrays[0]); // Bind (add to the current context) the first vertex array that will store triangle -> All consecutive actions will work on that context
-
-
-		glGenBuffers(1, &m_TriangleVertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER , m_TriangleVertexBuffer);
-
+		
 		float triangleVertices[3*3] = {
-			-0.75f, -0.75f, 0.0f,
+			-0.75f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,
 			0.0f,  0.5f, 0.0f
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW); //Create and initilize buffer object
+		m_VertexBuffer.reset(VertexBuffer::Create(triangleVertices, sizeof(triangleVertices)));
+		
+		std::vector<BufferElement> element = {
+			{ShaderDataType::Float3, "a_Position"}
+		};
+		BufferLayout layout(element);
+		//m_VertexBuffer->SetLayout(layout);
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr); //Explain to the gpu how the current data is layout
 
+
 		glGenBuffers(1, &m_TriangleIndexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_TriangleIndexBuffer);
 
-		unsigned int triangleIndices[3] = {0, 1, 2};
+		uint32_t triangleIndices[3] = {0, 1, 2};
+		m_IndexBuffer.reset(IndexBuffer::Create(triangleIndices, sizeof(triangleIndices)/ sizeof(uint32_t)));
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangleIndices), triangleIndices, GL_STATIC_DRAW);
 
 		glBindVertexArray(m_VertexArrays[1]); // Bind the second vertex array
@@ -103,16 +102,16 @@ namespace FastEngine
 			-0.5f, 0.5f, 0.0f
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertices), squareVertices, GL_STATIC_DRAW);
+		//glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertices), squareVertices, GL_STATIC_DRAW);
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		//glEnableVertexAttribArray(0);
+		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
-		glGenBuffers(1, &m_SquareIndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_SquareIndexBuffer);
+		//glGenBuffers(1, &m_SquareIndexBuffer);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_SquareIndexBuffer);
 
 		unsigned int squareIndices[6] = {0, 1, 2, 2, 3, 0};
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(squareIndices), squareIndices, GL_STATIC_DRAW);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(squareIndices), squareIndices, GL_STATIC_DRAW);
 
 		//layout(location = 0) -> specify that the attribute we are looking for is at index 0
 		//-> 0 should match with glVertexAttribPointer(0 
@@ -178,7 +177,7 @@ namespace FastEngine
 			glClearColor(0.1,0.1,0.1,1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			glBindVertexArray(m_VertexArrays[0]);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			glBindVertexArray(m_VertexArrays[1]);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);

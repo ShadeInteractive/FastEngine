@@ -158,10 +158,13 @@
     <ClInclude Include="Source\FastEngine\Log.h" />
     <ClInclude Include="Source\FastEngine\MouseButtonCodes.h" />
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="Source\FastEngine\Renderer\Buffer.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Context.h" />
+    <ClInclude Include="Source\FastEngine\Renderer\Renderer.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Shader.h" />
     <ClInclude Include="Source\FastEngine\Window.h" />
     <ClInclude Include="Source\FastEngine\fepch.h" />
@@ -589,12 +592,15 @@
     <ClCompile Include="Source\FastEngine\LayerStack.cpp" />
     <ClCompile Include="Source\FastEngine\Log.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="Source\FastEngine\fepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\FastEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="Source\FastEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\FastEngine\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>

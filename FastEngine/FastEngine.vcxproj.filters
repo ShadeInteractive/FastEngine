@@ -1352,6 +1352,10 @@
     </ClInclude>
     <ClInclude Include="Source\FastEngine\Renderer\Context.h" />
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Source\FastEngine\Renderer\Shader.h" />
+    <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="Source\FastEngine\Renderer\Buffer.h" />
+    <ClInclude Include="Source\FastEngine\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FastEngine\Application.cpp">
@@ -1382,5 +1386,9 @@
       <Filter>Source\FastEngine</Filter>
     </ClCompile>
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Source\FastEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="Source\FastEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="Source\FastEngine\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>
