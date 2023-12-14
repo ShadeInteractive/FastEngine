@@ -21,7 +21,6 @@ namespace FastEngine
 		//glBindVertexArray(m_VertexArrays[0]); // Bind (add to the current context) the first vertex array that will store triangle -> All consecutive actions will work on that context
 	}
 
-
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
 		glDeleteBuffers(1, &m_RendererID);
@@ -35,6 +34,11 @@ namespace FastEngine
 	void OpenGLVertexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::SetLayout(const BufferLayout& layout)
+	{
+		m_Layout = layout;
 	}
 
 	//////////////////////////////////////////

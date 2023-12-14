@@ -10,7 +10,6 @@
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
-
 namespace FastEngine
 {
 	class FE_API Application

@@ -57,6 +57,20 @@ namespace FastEngine
 
 	Application* Application::s_Instance = nullptr;
 
+	static GLenum ShaderDataTypeToOpenGlBaseType(ShaderDataType type) {
+		switch (type)
+		{
+			case ShaderDataType::Float:   return GL_FLOAT;
+			case ShaderDataType::Float2:  return GL_FLOAT;
+			case ShaderDataType::Float3:  return GL_FLOAT;
+			case ShaderDataType::Float4:  return GL_FLOAT;
+			case ShaderDataType::Boolean: return GL_BOOL;
+		}
+
+		FE_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		return 0;
+	}
+
 	Application::Application()
 	{
 		FE_CORE_ASSERT(!s_Instance,  "Application already exists.")
@@ -65,35 +79,62 @@ namespace FastEngine
 		m_Window = std::unique_ptr<Window>(Window::Create(WidowProperties("test", 720, 720)));
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		
-		float triangleVertices[3*3] = {
-			-0.75f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f,  0.5f, 0.0f
+		float triangleVertices[3*7] = {
+			-0.75f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			0.0f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		};
 
 		m_VertexBuffer.reset(VertexBuffer::Create(triangleVertices, sizeof(triangleVertices)));
 		
-		std::vector<BufferElement> element = {
-			{ShaderDataType::Float3, "a_Position"}
-		};
-		BufferLayout layout(element);
-		//m_VertexBuffer->SetLayout(layout);
+		{
+			/* h: this is a syntax allowed by std::initializer_list to create a list of elements of type BufferElement */
+			BufferLayout layout = {
+				{ShaderDataType::Float3, "a_Position"},
+				{ShaderDataType::Float4, "a_Color"}
+			};
+		
+			/* h: stores the layout inside the vertex buffer */
+			m_VertexBuffer->SetLayout(layout);
+		}
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr); //Explain to the gpu how the current data is layout
+		uint32_t index = 0;
+		const auto& layout = m_VertexBuffer->GetLayout();
+		for (auto& element : layout)
+		{
+			/*
+			* h: vertex attribute: A vertex attribute array corresponds to an element inside the buffer layout
+			* h: glEnableVertexAttribArray: Enable a generic vertex attribute array so that it can be used during rendering. 
+			*/
+			glEnableVertexAttribArray(index);
+			
+			/*
+			* h: glVertexAttribPointer: explains to the gpu how the current data is layout
+			* h: TODO: understand the parameter (const void*)element.Offset)
+			* documentation: https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glVertexAttribPointer.xhtml
+			*/
+			glVertexAttribPointer(index,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGlBaseType(element.Type),
+				element.Normalized ? GL_TRUE : GL_FALSE,
+				layout.GetStride(),
+				(const void*)element.Offset);
+
+			index++;
+		}
 
 
 		glGenBuffers(1, &m_TriangleIndexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_TriangleIndexBuffer);
-
+		
 		uint32_t triangleIndices[3] = {0, 1, 2};
 		m_IndexBuffer.reset(IndexBuffer::Create(triangleIndices, sizeof(triangleIndices)/ sizeof(uint32_t)));
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangleIndices), triangleIndices, GL_STATIC_DRAW);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangleIndices), triangleIndices, GL_STATIC_DRAW);
 
-		glBindVertexArray(m_VertexArrays[1]); // Bind the second vertex array
+		//glBindVertexArray(m_VertexArrays[1]); // Bind the second vertex array
 
-		glGenBuffers(1, &m_SquareVertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER , m_SquareVertexBuffer);
+		//glGenBuffers(1, &m_SquareVertexBuffer);
+		//glBindBuffer(GL_ARRAY_BUFFER , m_SquareVertexBuffer);
 
 		float squareVertices[4*3] = {
 			-0.5f, -0.5f, 0.0f,
@@ -117,26 +158,20 @@ namespace FastEngine
 		//-> 0 should match with glVertexAttribPointer(0 
 		// vec4 is by defaut a postiion inside open gl
 		// our Vector3 is converted automatically to vec4
-		std::string vertexShader = 
-			"#version 330 core\n"
-			"\n"
-			"layout(location = 0) in vec3 a_Position;\n"
-			"\n"
-			"void main()\n"
-			"{\n"
-			"	gl_Position = vec4(a_Position, 1.0);\n"
-			"}\n";
 
 		std::string vertexShader2 = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
 			out vec3 v_Position;
+			out vec4 v_Color;
 
 			void main()
 			{
 				v_Position = a_Position;
+				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
@@ -147,10 +182,12 @@ namespace FastEngine
 			layout(location = 0) out vec4 color;
 			
 			in vec3 v_Position;
+			in vec4 v_Color;
 
 			void main()
 			{
 				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
 			}
 		)";
 		
@@ -179,8 +216,8 @@ namespace FastEngine
 			glBindVertexArray(m_VertexArrays[0]);
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
-			glBindVertexArray(m_VertexArrays[1]);
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+			//glBindVertexArray(m_VertexArrays[1]);
+			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 			//FE_CORE_LOG("Test");
 			//glad_glBindVertexArray(m_VertexArray);
 			//glad_glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);

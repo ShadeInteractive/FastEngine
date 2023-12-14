@@ -24,28 +24,95 @@ namespace FastEngine
 	*	This represents the layout of type of data that is contained inside Buffer layout.
 		Stores name, type, size, offset of a buffer element
 	*/
-	class BufferElement {
+	struct BufferElement {
 		
 		public:
 			std::string Name;
 			ShaderDataType Type;
 			uint32_t Size; //we use uint32_t to garantee that the size is exactly 32 bits on any platform.
 			uint32_t Offset;
+			bool Normalized;
 
-			BufferElement(ShaderDataType type, std::string name)
-				: Type(type),Name(name), Size(ShaderDataTypeSize(type)), Offset(0)
+			uint32_t GetComponentCount() const
+			{
+				switch (Type)
+				{
+					case ShaderDataType::Float:   return 1;
+					case ShaderDataType::Float2:  return 2;
+					case ShaderDataType::Float3:  return 3;
+					case ShaderDataType::Float4:  return 4;
+					case ShaderDataType::Boolean: return 1;
+				}
+
+				FE_CORE_ASSERT(false, "Unknown ShaderDataType!");
+				return 0;
+			}
+
+			BufferElement(ShaderDataType type, std::string name, bool normalized = false)
+				: Type(type),Name(name), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
 			{
 			}
-			
 	};
 
 	class BufferLayout {
 	public:
-		BufferLayout(std::vector<BufferElement>) {}
-		inline const std::vector<BufferElement>& GetElements() { return m_Elements; } //use const to certify that this method is not going to modify the object. Return reference in order to avoid copy. 
-	private:
-		std::vector<BufferElement> m_Elements;
+		/* h: As soon as we implement a constructor with argument and start using a default constructor, we have to implement it manullay */
+		BufferLayout() {}
+		// what is std::initializer_list: easy way to pass a list of elements to a constructor
+		// it is especially useful when using brace-enclosed {} initializer syntax.
+		// https://en.cppreference.com/w/cpp/utility/initializer_list
+		BufferLayout(const std::initializer_list<BufferElement>& elements)
+			: m_Elements(elements)
+		{
+			CalculateOffsetsAndStride();
+		}
+		/*
+		* return the elements of the buffer layout
+		* h: const in front means that user will not be able to modify the object
+		* h: const in the end means that the method will not modify the object
+		*/
+		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; } //use const to certify that this method is not going to modify the object. Return reference in order to avoid copy. 
 		
+		/* 
+		* return the number of bytes between each element in the buffer 
+		* h: it's useless to use const in front here because we are returning a value and not a reference
+		*/
+		inline uint32_t GetStride() const { return m_Stride; }
+
+		/*
+		* h: if I want to iterate over the elements of the buffer layout I can create iterators:
+		* eg: for (auto& element : layout) ...
+		*/
+		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
+		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
+		/* 
+		* h: Inside the Vertex Buffer, GetLayout returns const BufferLayout& so we need to have const iterators
+		* eg: for (auto& element : m_vertexBuffer->GetLayout()) ...
+		*/
+		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
+		std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
+
+	private:
+		void CalculateOffsetsAndStride()
+		{
+			uint32_t offset = 0;
+			m_Stride = 0;
+			for (auto& element : m_Elements)
+			{
+				element.Offset = offset;
+				offset += element.Size;
+				m_Stride += element.Size;
+			}			
+		}
+	
+	private:
+		/* vector of buffer elements */
+		std::vector<BufferElement> m_Elements;
+
+		/* stride is the space between each element in the buffer. 
+		Element is for example vertex (float3) + color(float4) + vertex color(float3) = 10 floats = 10 * 4 bytes = 40 bytes
+		*/
+		uint32_t m_Stride;
 	};
 
 	/*
@@ -59,8 +126,10 @@ namespace FastEngine
 			virtual void Bind() const = 0;
 			virtual void Unbind() const = 0;
 
-			static VertexBuffer* Create(float* vertices, uint32_t size);
+			virtual const BufferLayout& GetLayout() const = 0;
+			virtual void SetLayout(const BufferLayout& layout) = 0;
 
+			static VertexBuffer* Create(float* vertices, uint32_t size);
 	};	
 
 	class IndexBuffer
