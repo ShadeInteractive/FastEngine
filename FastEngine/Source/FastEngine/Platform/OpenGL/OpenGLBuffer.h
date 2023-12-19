@@ -10,7 +10,7 @@ namespace FastEngine
 
 		virtual ~OpenGLVertexBuffer();
 
-		// Inherited via VertexBuffer
+		/*  */
 		virtual void Bind() const override;
 
 		virtual void Unbind() const override;

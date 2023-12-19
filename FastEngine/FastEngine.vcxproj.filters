@@ -1356,6 +1356,8 @@
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Buffer.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Renderer.h" />
+    <ClInclude Include="Source\FastEngine\Renderer\VertexArray.h" />
+    <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FastEngine\Application.cpp">
@@ -1390,5 +1392,7 @@
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Source\FastEngine\Renderer\Buffer.cpp" />
     <ClCompile Include="Source\FastEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="Source\FastEngine\Renderer\VertexArray.cpp" />
+    <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLVertexArray.cpp" />
   </ItemGroup>
 </Project>

@@ -160,12 +160,14 @@
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Source\FastEngine\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="Source\FastEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Buffer.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Context.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Renderer.h" />
     <ClInclude Include="Source\FastEngine\Renderer\Shader.h" />
+    <ClInclude Include="Source\FastEngine\Renderer\VertexArray.h" />
     <ClInclude Include="Source\FastEngine\Window.h" />
     <ClInclude Include="Source\FastEngine\fepch.h" />
     <ClInclude Include="ThirdParties\glm\glm\common.hpp" />
@@ -594,6 +596,7 @@
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Source\FastEngine\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="Source\FastEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="Source\FastEngine\fepch.cpp">
@@ -602,6 +605,7 @@
     <ClCompile Include="Source\FastEngine\Renderer\Buffer.cpp" />
     <ClCompile Include="Source\FastEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\FastEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="Source\FastEngine\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ThirdParties\GLFW\GLFW.vcxproj">

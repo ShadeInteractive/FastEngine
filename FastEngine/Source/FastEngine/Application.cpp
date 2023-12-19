@@ -57,19 +57,6 @@ namespace FastEngine
 
 	Application* Application::s_Instance = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGlBaseType(ShaderDataType type) {
-		switch (type)
-		{
-			case ShaderDataType::Float:   return GL_FLOAT;
-			case ShaderDataType::Float2:  return GL_FLOAT;
-			case ShaderDataType::Float3:  return GL_FLOAT;
-			case ShaderDataType::Float4:  return GL_FLOAT;
-			case ShaderDataType::Boolean: return GL_BOOL;
-		}
-
-		FE_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
 
 	Application::Application()
 	{
@@ -79,85 +66,69 @@ namespace FastEngine
 		m_Window = std::unique_ptr<Window>(Window::Create(WidowProperties("test", 720, 720)));
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		
+		/*************************/
+		/* Create triangle */
+		/*************************/
+
+		m_VertexArray.reset(VertexArray::Create());
 		float triangleVertices[3*7] = {
-			-0.75f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
 			0.0f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
+		};
+		std::shared_ptr<VertexBuffer> m_VertexBufferTest;
+		m_VertexBufferTest.reset(VertexBuffer::Create(triangleVertices, sizeof(triangleVertices)));
+		
+		/* h: this is a syntax allowed by std::initializer_list to create a list of elements of type BufferElement */
+		
+		BufferLayout layout = {
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float4, "a_Color"}
+		};
+		
+		/* h: stores the layout inside the vertex buffer */
+		
+		m_VertexBufferTest->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(m_VertexBufferTest);
+		
+		uint32_t triangleIndices[6] = {0, 1, 2};
+		std::shared_ptr<IndexBuffer> m_IndexBufferTest;
+		m_IndexBufferTest.reset(IndexBuffer::Create(triangleIndices, sizeof(triangleIndices)/ sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(m_IndexBufferTest);
+		
+		/************************************************/
+		/* Create square */
+		/************************************************/
+		//Create vertex array
+		m_SquareVertexArray.reset(VertexArray::Create());
+		float triangleVerticesTest[4*7] = {
+			-0.80f, 0.80f, 0.0f,
+			0.75f,  0.90f, 0.0f,
+			0.75f,  -0.70f, 0.0f,
+			-0.75f, -0.75f, 0.0f
+		};
+		//Create vertex buffer and connect layout inside it
+		std::shared_ptr<VertexBuffer> m_VertexBufferTest2;
+		m_VertexBufferTest2.reset(VertexBuffer::Create(triangleVerticesTest, sizeof(triangleVerticesTest)));
+
+		BufferLayout layout2 = {
+			{ShaderDataType::Float3, "a_Position"}
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(triangleVertices, sizeof(triangleVertices)));
+		m_VertexBufferTest2->SetLayout(layout2);
+		//Store vertex buffer inside the vertex array
+		m_SquareVertexArray->AddVertexBuffer(m_VertexBufferTest2);
 		
-		{
-			/* h: this is a syntax allowed by std::initializer_list to create a list of elements of type BufferElement */
-			BufferLayout layout = {
-				{ShaderDataType::Float3, "a_Position"},
-				{ShaderDataType::Float4, "a_Color"}
-			};
-		
-			/* h: stores the layout inside the vertex buffer */
-			m_VertexBuffer->SetLayout(layout);
-		}
-
-		uint32_t index = 0;
-		const auto& layout = m_VertexBuffer->GetLayout();
-		for (auto& element : layout)
-		{
-			/*
-			* h: vertex attribute: A vertex attribute array corresponds to an element inside the buffer layout
-			* h: glEnableVertexAttribArray: Enable a generic vertex attribute array so that it can be used during rendering. 
-			*/
-			glEnableVertexAttribArray(index);
-			
-			/*
-			* h: glVertexAttribPointer: explains to the gpu how the current data is layout
-			* h: TODO: understand the parameter (const void*)element.Offset)
-			* documentation: https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glVertexAttribPointer.xhtml
-			*/
-			glVertexAttribPointer(index,
-				element.GetComponentCount(),
-				ShaderDataTypeToOpenGlBaseType(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				(const void*)element.Offset);
-
-			index++;
-		}
-
-
-		glGenBuffers(1, &m_TriangleIndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_TriangleIndexBuffer);
-		
-		uint32_t triangleIndices[3] = {0, 1, 2};
-		m_IndexBuffer.reset(IndexBuffer::Create(triangleIndices, sizeof(triangleIndices)/ sizeof(uint32_t)));
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(triangleIndices), triangleIndices, GL_STATIC_DRAW);
-
-		//glBindVertexArray(m_VertexArrays[1]); // Bind the second vertex array
-
-		//glGenBuffers(1, &m_SquareVertexBuffer);
-		//glBindBuffer(GL_ARRAY_BUFFER , m_SquareVertexBuffer);
-
-		float squareVertices[4*3] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.5f, 0.5f, 0.0f,
-			-0.5f, 0.5f, 0.0f
-		};
-
-		//glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertices), squareVertices, GL_STATIC_DRAW);
-
-		//glEnableVertexAttribArray(0);
-		//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-		//glGenBuffers(1, &m_SquareIndexBuffer);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_SquareIndexBuffer);
-
-		unsigned int squareIndices[6] = {0, 1, 2, 2, 3, 0};
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(squareIndices), squareIndices, GL_STATIC_DRAW);
-
-		//layout(location = 0) -> specify that the attribute we are looking for is at index 0
-		//-> 0 should match with glVertexAttribPointer(0 
-		// vec4 is by defaut a postiion inside open gl
-		// our Vector3 is converted automatically to vec4
+		//Create index buffer and store it inside vertex array
+		/*
+		* How to understand triangles indices:
+		* it's gonna read vertex at index 0 then 1 then 2, then print the triangle.
+		* then read vertex 2 then 3 then 0 in order to print the second triangle. 
+		*/
+		uint32_t triangleIndices2[6] = {0, 1, 2, 2, 3 , 0};
+		std::shared_ptr<IndexBuffer> m_IndexBufferTest2;
+		m_IndexBufferTest2.reset(IndexBuffer::Create(triangleIndices2, sizeof(triangleIndices2)/ sizeof(uint32_t)));
+		m_SquareVertexArray->SetIndexBuffer(m_IndexBufferTest2);
 
 		std::string vertexShader2 = R"(
 			#version 330 core
@@ -193,12 +164,35 @@ namespace FastEngine
 		
 		// int is 4 bytes from 	0 to 4294967295 -> 
 		m_Shader.reset(new Shader(vertexShader2, fragmentShader));
-		m_Shader.get()->Bind();
-		//m_Shader_old = CreateShader(vertexShader, fragmentShader);
-		//glUseProgram(m_Shader_old);
-		//glBindVertexArray(0);
 
+		std::string vertexShaderBlue = R"(
+			#version 330 core
 
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string fragmentShaderBlue = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+		m_FlatColorShader.reset(new Shader(vertexShaderBlue, fragmentShaderBlue));
 	}
 
 	Application::~Application()
@@ -213,14 +207,14 @@ namespace FastEngine
 
 			glClearColor(0.1,0.1,0.1,1);
 			glClear(GL_COLOR_BUFFER_BIT);
-			glBindVertexArray(m_VertexArrays[0]);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
-			//glBindVertexArray(m_VertexArrays[1]);
-			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-			//FE_CORE_LOG("Test");
-			//glad_glBindVertexArray(m_VertexArray);
-			//glad_glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			m_FlatColorShader.get()->Bind();
+			m_SquareVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			m_Shader.get()->Bind();
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for(Layer* layer : m_LayerStack)
 				layer->OnUpdate();

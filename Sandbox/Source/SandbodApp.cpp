@@ -50,8 +50,8 @@ class Sandbox : public FastEngine::Application
 	public:
 		Sandbox()
 		{
-			PushLayer(new TestLayer());
-			PushLayer(new TestLayer2());
+			//PushLayer(new TestLayer());
+			//PushLayer(new TestLayer2());
 			PushOverlay(new FastEngine::ImGuiLayer());
 		}
 

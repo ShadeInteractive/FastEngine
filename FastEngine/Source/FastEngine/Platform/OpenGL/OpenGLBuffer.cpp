@@ -12,7 +12,7 @@ namespace FastEngine
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		//1= Number of buffer objects we want to create. //the renderer id of the created buffer. This variable is set by open gl when creating buffer
-		glCreateBuffers(1, &m_RendererID);
+		glCreateBuffers(1, &m_RendererID); //Create a buffer object
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID); //Bind the buffer to the current context. GL_ARRAY_BUFFER: Buffer containing an array of vertices
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW); //Create and initilize buffer object
 		
@@ -28,6 +28,7 @@ namespace FastEngine
 
 	void OpenGLVertexBuffer::Bind() const
 	{
+		//glBindBuffer is used to bind a buffer to a context
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 	}
 

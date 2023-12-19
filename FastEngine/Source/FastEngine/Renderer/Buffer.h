@@ -128,7 +128,12 @@ namespace FastEngine
 
 			virtual const BufferLayout& GetLayout() const = 0;
 			virtual void SetLayout(const BufferLayout& layout) = 0;
-
+			/*
+			* Create a vertex buffer
+			* 
+			* @param vertices: pointer to the vertices array
+			* @param size: size of the vertices array in bytes
+			*/
 			static VertexBuffer* Create(float* vertices, uint32_t size);
 	};	
 
